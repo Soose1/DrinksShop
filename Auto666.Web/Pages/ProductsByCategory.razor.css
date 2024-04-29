@@ -1,0 +1,30 @@
+﻿select:focus {
+    border-color: #ebebeb;
+    box-shadow: none !important;
+}
+
+
+
+@media(max-width: 1200px) {
+    .container {
+        max-width: 100%;
+    }
+}
+
+@media(max-width: 998px) {
+    .container {
+        max-width: 100%;
+    }
+}
+
+@media(max-width: 768px) {
+    .container {
+        max-width: 100%;
+    }
+}
+
+@media(max-width: 768px) {
+    .container {
+        max-width: 100%;
+    }
+}

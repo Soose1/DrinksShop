@@ -1,0 +1,104 @@
+.logo{
+    width: 135px;
+}
+.navbar-toggler {
+    background-color: transparent;
+}
+.navbar-item {
+    margin-right: 20px;
+}
+.side-menu {
+    display: flex;
+    align-items: center;
+}
+.about {
+    text-decoration: none;
+    color: black;
+}
+.container-fluid{
+    display: flex;
+    justify-content: space-between; 
+    padding: 0;
+}
+.navbar-brand {
+    font-size: 1.2rem;
+}
+.oi {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+}
+
+.login{
+    text-decoration: none;
+    color: black;
+}
+.logout {
+    text-decoration: none;
+    color: red;
+}
+.dropbtn {
+    background-color: white;
+    color: black;
+    padding: 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    width: 100%;
+}
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: right;
+        width: 100%;
+    }
+        .dropdown-content a:hover {
+            background-color: red;
+            color: white;
+        }
+
+.dropdown:hover .dropdown-content {
+    display: flex;
+}
+
+
+@media (max-width: 560px) {
+
+    .dropbtn {
+        padding: 0;
+    }
+}
+@media (max-width: 768px) {
+    
+    .logo img {
+        width: 108px;
+        height: 80px;
+    }
+}
+
+@media(max-width: 400px)
+{
+    .navbar-item{
+        margin-right: 10px;
+    }
+}
+
+
+

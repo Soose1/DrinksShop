@@ -1,0 +1,62 @@
+﻿@page "/ProductsByCategory/{CategoryId:int}"
+@inherits ProductsByCategoryBase
+@inject Auto666.Web.Services.ProductService productService
+
+@if(Products == null && ErrorMessage == null)
+{
+    <DisplaySpinner/>
+}
+else if(ErrorMessage != null)
+{
+    <DisplayError ErrorMessage = "@ErrorMessage" />
+}
+else
+{
+    <div class="kuzovcontainer">
+        <ProductCategoriesNavMenu />
+    </div>
+
+    <div class="container d-flex align-items-center" style="padding: 2%; background-color: white; height: 155px; border-radius: 0px 7px 7px 7px">
+        <section style="width: 100%">
+            <div class="dropdown">
+                <label for="car-dropdown">
+                    Оберіть автомобіль <i class="fas fa-chevron-down"></i>
+                </label>
+                <select style="width: 100%; height: 35px" id="car-dropdown" name="cars" class="form-control" @onchange="OnProductSelected">
+                    <option value="-"> </option>
+                    <option value="null" selected>Усі </option>
+                    @foreach (var product in Products)
+                    {
+                        <option value="@product.Name">@product.Name</option>
+                    }
+                </select>
+            </div>
+        </section>
+
+    </div>
+    <h3 style="margin: 20px 0">Найновіші пропозиції</h3>
+        <div class="row mt-3 justify-content-lg-start">
+            <div class = "row mt-3">
+                <DisplayProducts Products = "@Products"></DisplayProducts>
+            </div>
+        </div>
+}
+
+@code {
+    
+    private ProductDto selectedProduct;
+
+    private async Task OnProductSelected(ChangeEventArgs e)
+    {
+        string productName = e.Value.ToString();
+        selectedProduct = Products.FirstOrDefault(p => p.Name == productName);
+        if (selectedProduct != null)
+        {
+            Products = new List<ProductDto> { selectedProduct };
+        }     
+        if (selectedProduct == null)
+        {
+            Products = await ProductService.GetItemsByCategory(CategoryId);
+        }
+    }
+}

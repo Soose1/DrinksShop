@@ -1,0 +1,126 @@
+﻿.container-fluid {
+    display: flex;
+}
+
+hr {
+    margin-bottom: 13px;
+    margin-top: 20px;
+    color: black;
+    z-index: 9;
+    height: 1px;
+    width: 100%;
+    color: black;
+}
+
+.popup {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+}
+
+    .popup.active {
+        display: block;
+    }
+
+.popup__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 18px;
+    color: #666;
+    cursor: pointer;
+}
+
+.checkout-window {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.checkout-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.checkout-actions {
+    margin-top: 20px;
+}
+
+.close-button {
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.close-icon {
+    font-size: 20px;
+    color: red;
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+}
+
+@media(max-width: 1200px) {
+    .checkout-content {
+        width: 55% !important;
+    }
+}
+
+@media(max-width: 900px) {
+    .checkout-content {
+        width: 70% !important;
+    }
+}
+@media(max-width: 768px)
+{
+    #main{
+        flex-direction: column !important;
+    }
+    #main hr{
+        display: none;
+    }
+    .checkout-content {
+        width: 80% !important;
+    }
+}
+
+@media(max-width: 560px)
+{
+    .checkout-content {
+        width: auto !important;
+    }
+    #descript {
+        flex-direction: column !important;
+    }
+    #title {
+        width: 100% !important;
+        justify-content: center;
+        display: flex;
+        margin-bottom: 10px;
+    }
+    #content {
+        width: 100% !important;
+        justify-content: center;
+        display: flex;
+        margin-bottom: 10px;
+    }
+}

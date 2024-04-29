@@ -1,0 +1,37 @@
+﻿.container-fluid{
+    display: flex;
+}
+h3 {
+    padding-left: var(--bs-gutter-x,.75rem);
+}
+
+.mini-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+hr {
+    margin-bottom: 13px;
+    margin-top: 20px;
+    color: black;
+    z-index: 9;
+    height: 1px;
+    width: 100%;
+    color: black;
+}
+
+@media(max-width: 640px){
+    #desc {
+        display: flex;
+        flex-direction: column;
+    }
+    .text-desc{
+        margin-left: 0!important;
+    }
+
+    h5{
+        display:flex;
+        justify-content:center;
+    }
+}

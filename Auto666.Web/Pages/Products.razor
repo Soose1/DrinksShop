@@ -1,0 +1,80 @@
+﻿@page "/"
+@inherits ProductsBase
+@inject NavigationManager NavigationManager
+@inject Auto666.Web.Services.ProductService productService
+
+@if(Products == null && ErrorMessage == null)
+{  
+    <DisplaySpinner/>
+}   
+else if(ErrorMessage != null)
+{   
+    <DisplayError ErrorMessage="@ErrorMessage"></DisplayError>
+}
+else
+{
+    <div class="kuzovcontainer">
+        <ProductCategoriesNavMenu />
+    </div>
+
+    <div class="container d-flex align-items-center" style="padding: 2%; padding-bottom: 4.5%; background-color: white; height: 155px; border-radius: 0px 7px 7px 7px">
+        <section style="width: 100%">
+            <div class="dropdown">
+                <label for="car-dropdown">
+                    Оберіть автомобіль <i class="fas fa-chevron-down"></i>
+                </label>
+                <select style="width: 100%; height: 35px" id="car-dropdown" name="cars" class="form-control" @onchange="OnProductSelected">
+                    <option value="-"> </option>
+                    <option value="null" selected >Усі авто</option>
+                    @foreach (var product in Products)
+                    {
+                        <option value="@product.Name">@product.Name</option>
+                    }
+                </select>
+            </div>
+        </section>
+        
+    </div>
+    <h3 style="margin: 20px 0">Найновіші пропозиції</h3>
+
+    @if (Products.Count() > 0)
+    {
+        <div class="row mt-3 justify-content-lg-start">
+
+            @foreach(var prodGroup in GetGroupedProductsByCategory())
+            {
+                string link = "/ProductsByCategory/" + GetCategoryId(prodGroup);
+                <h4 style="margin: 20px 0; padding-left: 10px">@GetCategoryName(prodGroup)</h4>                  
+                <div class = "row mt-3">
+                    <DisplayProducts Products = "@prodGroup.Take(3)"></DisplayProducts>
+                </div>
+                <div class="container" style="padding-inline: 10px">
+                    <a href="@link" style="text-decoration: none; width: 100%; height:65px; background-color: white; align-items: center; display: flex; justify-content: center;border: 1px solid rgba(0,0,0,.125); border-radius: 7px">
+                        <p style="text-decoration: none; color: black; font-size: 25px; margin: 0">+ Більше в цій категорії:</p>
+                    </a>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <hr style="width: 97%"/>
+                </div>
+            }
+        </div>
+    }
+}
+@code{
+
+    private ProductDto selectedProduct;
+
+    private async Task OnProductSelected(ChangeEventArgs e)
+    {
+        string productName = e.Value.ToString();
+        selectedProduct = Products.FirstOrDefault(p => p.Name == productName);
+        if (selectedProduct != null)
+        {
+            Products = new List<ProductDto> { selectedProduct };
+        }
+        if (selectedProduct == null)
+        {
+            Products = await ManageProductsLocalStorageService.GetCollection();
+        }
+    }
+}

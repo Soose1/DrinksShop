@@ -1,0 +1,40 @@
+﻿
+<div class="container-fluid">
+    <AuthorizeView>
+        <NotAuthorized>
+            <div class="logo">
+                <a href="/#">
+                    <img src="666logo.ico" width="135" height="100" style="border-bottom-left-radius: 7px">
+                </a>
+            </div> 
+            <div class="side-menu">
+                <div class="navbar-item">
+                    <a href="/About" class="about">Про нас</a>
+                </div>
+                <div class="navbar-item">
+                    <a href="/login" class = "login">Вхід</a>
+                </div>
+            </div>
+        </NotAuthorized>
+        <Authorized>
+            <div class="logo">
+                <a class="navbar-brand" href="/#">
+                    <img src="666logo.ico" width="135" height="100">
+                </a>               
+            </div>   
+            <div class="side-menu">
+                <div class="navbar-item">
+                     <a href="/About" class="about">Про нас</a>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn">@context.User.Identity.Name <i class="fas fa-chevron-down"></i></button>
+                    <div class="dropdown-content">
+                        <a href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                    </div>
+                </div>
+            </div>
+        </Authorized>       
+    </AuthorizeView>
+</div>
+
+

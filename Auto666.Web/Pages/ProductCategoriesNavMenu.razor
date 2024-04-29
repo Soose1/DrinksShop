@@ -1,0 +1,28 @@
+﻿@inherits ProductCategoriesNavMenuBase
+
+@if(ProductCategoryDtos == null && ErrorMessage == null)
+{
+    <DisplaySpinner/>
+}
+else if(ErrorMessage != null)
+{
+    <DisplayError ErrorMessage = "@ErrorMessage"/>
+}
+else
+{
+    <div class="nav-item d-flex align-items-center " style="height: 100%; margin-left: 0;">
+        <NavLink class="my-nav-link text-decoration-none" style="display: flex; justify-content: center; align-items: center; text-decoration: none; color :black;" href="#">
+            <p class="m-0">Усі</p>
+        </NavLink>
+        </div>
+    @foreach(var productCategory in ProductCategoryDtos)
+    {
+        var link = "/ProductsByCategory/" + productCategory.Id;
+        
+        <div class = "nav-item">
+            <NavLink class="my-nav-link" href="@link">
+                <img src="@productCategory.Icon" height="33" width="59">
+            </NavLink>
+        </div>
+    }
+}

@@ -1,0 +1,35 @@
+﻿a {
+    text-decoration: none;
+    color: black;
+}
+.card-title {
+    font-weight: 700;
+}
+a:hover .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+a:hover img {
+    transform: scale(1.02);
+    transition: 0.5s ease-in-out;
+}
+
+img {
+    transition: 0.5s ease-in-out;
+    padding: 0;
+}
+
+.img-thumbnail {
+    border-radius: 7px 7px 0px 0px;
+    border: none;
+}
+
+.card:first-child {
+    margin-left: 0;
+}
+
+.card:last-child {
+    margin-right: 0;
+}
+

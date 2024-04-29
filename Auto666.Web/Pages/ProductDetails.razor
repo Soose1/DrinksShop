@@ -1,0 +1,184 @@
+﻿@page "/ProductDetails/{Id:int}"
+@inherits ProductDetailsBase
+@inject IJSRuntime JSRuntime
+@using System.Net.Mail
+
+@if (Product == null && ErrorMessage == null)
+{
+    <DisplaySpinner/>
+}
+else if (ErrorMessage != null)
+{
+    <DisplayError ErrorMessage="@ErrorMessage"></DisplayError>
+}
+else
+{
+    <div class="d-flex flex-wrap container-fluid" style="background-color: white; height: 100%; width: 100%; border-radius: 7px 7px 0 0; margin-top: 50px; padding-inline: 30px; padding-top: 50px">
+        <div id="main" class="row d-flex flex-nowrap justify-content-between" style="width: 100%">
+            <div class="col-md-8 mb-4">
+                <img style="" class="img-fluid" src="@Product.ImageURL">
+            </div>
+            <div class="col" style="margin-left: 3%">
+                <h2 class="fw-bold">@Product.Name</h2>
+                <p class="fs-4">
+                    @Product.Range км, @Product.Year рiк
+                    <br><br>@Product.City <i class="fa-solid fa-location-dot"></i>
+                </p>
+                <hr style="margin-top: 0px"/>
+
+                <p class="mb-4">   
+                    <h3 class="fw-bold fs-1 mb-3 text-success">
+                        @Product.Price.ToString("N0")$
+                    </h3>
+                </p>
+                <div class="row d-flex justify-content-center">
+                    <AuthorizeView>
+                        <NotAuthorized>
+                            <button class="d-flex align-items-center justify-content-center" style="width: 100%; height: 50px; border: none; border-radius: 7px; background-color: #5A5A5A; color: white; font-weight: 700" @onclick="async () => await ScrollToBottom()">Зв'язатися з нами</button>
+                        </NotAuthorized>
+                        <Authorized>
+                            <button class="d-flex align-items-center justify-content-center" style="width: 100%; height: 50px; border: none; border-radius: 7px; background-color: #5A5A5A; color: white; font-weight: 700" @onclick="OpenCheckoutWindow">Зв'язатися з нами</button>
+                        </Authorized>
+                    </AuthorizeView>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div id="descript" class="row py-3 d-flex flex-nowrap justify-content-center" style="width: 100%">
+                <div id="title" class="col" style="width: 33.3%">
+                    <h2 class="fw-bold">Основні дані</h2>
+                </div>
+                <div id="content" class="row" style="width: 66.6%">
+                    <div class="col fs-5">
+                        Марка
+                        <br>Модель
+                        <br>Тип кузова
+                        <br>Рік випуску
+                        <br>Коробка передач
+                        <br>Тип палива
+                        <br>Об'єм двигуна
+                        <br>Потужність двигуна
+                    </div>
+                    <div class="col fs-5">
+                         @Product.Model
+                        <br>@Product.Mark
+                        <br>@Product.CategoryName
+                        <br>@Product.Year
+                        <br>@Product.Transmission
+                        <br>@Product.FuelType
+                        <br>@Product.Volume л.
+                        <br>@Product.Horses к.с.
+                    </div>
+                </div>
+            </div>
+        <hr />
+        <div id="descript" class="row py-3 d-flex flex-nowrap justify-content-center" style="width: 100%">
+            <div id="title" class="col" style="width: 33.3%">
+                <h2 class="fw-bold">Коментарій продавця</h2>
+            </div>
+            <div id="content" class="row fs-5" style="width: 66.6%">
+                <p class="mb-4">@Product.Description</p>
+            </div>
+        </div>
+        <hr />
+        <div id="descript" class="row py-3 d-flex flex-nowrap justify-content-center" style="width: 100%">
+            <div id="title" class="col" style="width: 33.3%">
+                <h2 class="fw-bold">Продавець</h2>
+            </div>
+            <div id="content" class="row" style="width: 66.6%">
+                <div class="col fs-5">
+                    Телефон
+                    <br>E-mail
+                </div>
+                <div class="col fs-5">
+                    +380973067801
+                    <br>auto666@gmail.com
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="position: absolute; background-color: white; height: 130px; width: 100%; z-index: 1"></div>
+    @if (IsCheckoutWindowOpen)
+    {
+        <div class="checkout-window">
+            <div class="checkout-content" style="width: 40%">
+                <div style="margin-bottom: 30px">
+                    <i class="fas fa-times close-icon" @onclick="CloseCheckoutWindow"></i>
+                    <h2>Зворотній зв'язок з нами</h2>
+                </div>
+                <form class="d-flex justify-content-center row">
+                    <div class="row">
+                        <div class="d-flex flex-column justify-content-center align-items-center h-100">
+                            <div class="mb-3" style="width: 50%">
+                                <label for="recipient-name" class="form-label">Ваш e-mail:</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <hr style="width: 85%"/>
+                            <div class="mb-3" style="width: 70%;">
+                                <label for="recipient-address" class="form-label">Ваше повідомлення:</label>
+                                <textarea class="form-control" style="height: 200px; resize: vertical;" required></textarea>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="checkout-actions" style="margin-top: 30px">
+                        <NavLink href="/#" style="display: flex; justify-content: center; text-decoration: none;">
+                            <button class="d-flex align-items-center justify-content-center" style="width: 30%; height: 50px; border: none; border-radius: 7px; background-color: #5A5A5A; color: white; font-weight: 700" @onclick="SendMail">Відправити</button>
+                        </NavLink>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    }
+}
+
+@code {
+    private string Message { get; set; } = "";
+    private void SendMail()
+    {
+        try
+        {
+            using (MailMessage mail = new MailMessage())
+            {
+                mail.From = new MailAddress("vglazahsvetit@gmail.com");
+                mail.To.Add("reverse25061981@gmail.com");
+                mail.Subject = "Sending Mail Testing";
+                mail.Body = "<h1>This is mail body</h1>";
+                mail.IsBodyHtml = true;
+
+                using(SmtpClient smtp = new SmtpClient("smtp.gamail.com", 587))
+                {
+                    smtp.Credentials = new System.Net.NetworkCredential("vglazahsvetit@gmail.com", "Rain1234");
+                    smtp.EnableSsl = true;
+                    smtp.Send(mail);
+                    Message = "Mail Sent";
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Message = ex.Message;
+        }
+    }
+    private async Task ScrollToBottom()
+    {
+        //await JSRuntime.InvokeVoidAsync("window.scrollTo", 999, 999);
+        NavigationManager.NavigateTo("/login");
+    }
+    bool IsCheckoutWindowOpen = false;
+
+    void OpenCheckoutWindow()
+    {
+        IsCheckoutWindowOpen = true;
+    }
+    void CloseCheckoutWindow()
+    {
+        IsCheckoutWindowOpen = false;
+    }
+
+    void SubmitCheckoutWindow()
+    {
+        IsCheckoutWindowOpen = false;
+    }
+}

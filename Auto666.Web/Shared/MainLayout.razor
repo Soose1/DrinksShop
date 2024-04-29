@@ -1,0 +1,25 @@
+﻿@inherits LayoutComponentBase
+@inject IJSRuntime JSRuntime
+
+<div class="page">
+    <header style="border-bottom-left-radius: 7px; border-bottom-right-radius: 7px">
+        <NavMenu />
+    </header>
+    <main>
+        <article class="content">                    
+            @Body
+        </article>
+    </main>
+    <a id="arrow" class="text-muted d-flex text-decoration-none justify-content-end" @onclick="async () => await ScrollToTop()" style="z-index: 9; padding-right: 30px; cursor:pointer; height: 30px; align-items: center;">
+        <i class="fa-solid fa-arrow-up fa-xl"></i>
+    </a>
+    <Footer />
+</div>
+
+@code {
+    private async Task ScrollToTop()
+    {
+        await JSRuntime.InvokeVoidAsync("window.scrollTo", 0, 0);
+    }
+}
+

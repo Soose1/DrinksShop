@@ -1,0 +1,29 @@
+﻿@inherits DisplayProductsBase
+@foreach (var item in Products)
+{
+    <div class="col-md-4 mb-4">
+        <a href="/ProductDetails/@item.Id">
+            <div class="card" style="border-radius: 7px; margin-inline: 10px; height: 100%">
+                <img class="img-thumbnail" src="@item.ImageURL">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">
+                        @item.Name
+                    </h5>
+                    <h3 class="card-subtitle mb-3 text-success">
+                        <b>@item.Price.ToString("N0")$</b>
+                    </h3>
+                    <p class="card-text">
+                        @item.Model, @item.CategoryName,
+                        <br>@item.Year рiк, @item.Range км,
+                        <br>Коробка: @item.Transmission,
+                        <br>@item.FuelType, @item.Volume л.(@item.Horses к.с.),
+                        <br><br>
+                        <h4 class ="modal-title mb-2">
+                            @item.City <i class="fa-solid fa-location-dot"></i>
+                        </h4>
+                    </p>
+                </div>
+            </div>
+        </a>
+    </div>
+}
